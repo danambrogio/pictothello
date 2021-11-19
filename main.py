@@ -23,39 +23,44 @@ HARD_LOCATION = (390, 550)
 def menu(screen):
     running = True
 
+    # Load images
+    bg_img = pygame.image.load(os.path.join("img/background.png")).convert()
+    easy_img = pygame.image.load(os.path.join(
+        "img", "easy_menu_btn.png")).convert()
+    med_img = pygame.image.load(os.path.join(
+        "img", "medium_menu_btn.png")).convert()
+    hard_img = pygame.image.load(os.path.join(
+        "img", "hard_menu_btn.png")).convert()
+
     # UI
     # Background
-    bg_image = pygame.image.load(os.path.join("img/background.png")).convert()
     screen.fill((255, 255, 255))
-    screen.blit(bg_image, (0, 0))
+    screen.blit(bg_img, (0, 0))
 
     # Title
-    font = pygame.font.SysFont('Arial', 75)
-    title = font.render("PictOthello", True, (30, 30, 30))
+    title_font = pygame.font.SysFont('Arial', 75)
+    title = title_font.render("PictOthello", True, (30, 30, 30))
     screen.blit(title, TITLE_LOCATION)
 
     # Menu Buttons
-    easy_btn = pygame.image.load(os.path.join(
-        "img", "easy_menu_btn.png")).convert()
-    med_btn = pygame.image.load(os.path.join(
-        "img", "medium_menu_btn.png")).convert()
-    hard_btn = pygame.image.load(os.path.join(
-        "img", "hard_menu_btn.png")).convert()
-    easy = screen.blit(easy_btn, EASY_LOCATION)
-    medium = screen.blit(med_btn, MEDIUM_LOCATION)
-    hard = screen.blit(hard_btn, HARD_LOCATION)
+    easy_btn = screen.blit(easy_img, EASY_LOCATION)
+    medium_btn = screen.blit(med_img, MEDIUM_LOCATION)
+    hard_btn = screen.blit(hard_img, HARD_LOCATION)
 
     while running:
         # User input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if easy.collidepoint((event.pos)):
+                if easy_btn.collidepoint((event.pos)):
                     return SCENE_GAME, EASY
-                elif medium.collidepoint((event.pos)):
+                elif medium_btn.collidepoint((event.pos)):
                     return SCENE_GAME, MEDIUM
-                elif hard.collidepoint((event.pos)):
+                elif hard_btn.collidepoint((event.pos)):
                     return SCENE_GAME, HARD
 
         pygame.display.flip()
