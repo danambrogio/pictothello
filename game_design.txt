@@ -1,0 +1,45 @@
+Othello Art
+
+Using Othello controls, match the given picture.
+
+# Startup:
+Show a menu screen with Easy, Medium, Hard buttons, and Exit.
+Show a background image.
+Play the menu music
+Clicking a button plays a sound
+
+# Difficulty
+Easy: 4x4 grid
+Medium: 5x5 grid
+Hard: 6x6 grid
+
+# Game Layout
+Timer shown in center top
+Number of moves shown in center top
+High Score for given image below it
+Large Game grid takes up left/middle of screen
+Small Target grid takes up upper right of screen
+Target Art Name under Target grid
+Current piece colour appears under Target grid (maybe change cursor colour?)
+
+# Game Startup
+Timer starts
+Music starts
+Randomly choose one of the Target Arts for the selected difficulty
+Load Target Art into the Target grid
+Set Game grid to default start position (and same size as target)
+
+# Game loop
+Clicking an empty cell places the current piece there
+Clicking cells plays a soft click sound
+Other pieces are updated according to Othello rules
+When the Game grid matches the Target grid, stop timer
+Pop up player's time, indicate whether the high score was beaten (update high score list)
+Return player to main menu
+
+# High scores
+Each Art has two separate high scores:
+Fastest time
+Fewest moves
+
+# PictOthello rules
