@@ -12,14 +12,14 @@ class Cell(object):
         self.color = color
 
     # Sets the color
-    # Returns 1 if a piece was placed
-    # Returns 0 if a piece could not be placed
+    # Returns True if a piece was placed
+    # Returns False if a piece could not be placed
     def place_piece(self, color):
         if self.color == NONE:
             self.color = color
-            return 1
+            return True
         else:
-            return 0
+            return False
 
 
 class Grid(object):
@@ -29,21 +29,26 @@ class Grid(object):
         self.size = size
         self.cells = [[Cell(NONE) for _ in range(size)] for _ in range(size)]
 
-    # Returns 1 if a piece was placed
-    # Returns 0 if a piece could not be placed
+    # Returns True if a piece was placed
+    # Returns False if a piece could not be placed
     def place_piece(self, color, position):
         (x, y) = position
         if x >= self.size or y >= self.size:
-            return 0
-        return self.cells[y][x].place_piece(color)
+            # Invalid position
+            return False
+        result = self.cells[y][x].place_piece(color)
 
-        # Update other cells if surrounding
-        # Look up, left, right, down, diagonal
-        # If piece beside is opposite-color, check if capturing:
-        #   If oxo, x becomes o
-        #   If oxxxo, xxx becomes ooo
+        if result:
+            # Piece successfully placed
+            # Let's start with something simpler:
+            # Adjacent pieces get turned your color
+            return True
+        else:
+            # Piece was not placed
+            return False
 
     # Prettyprint for debug purposes only
+
     def prettyprint(self):
         for y in self.cells:
             for x in y:
@@ -64,12 +69,14 @@ class Game(object):
     # position: (x, y) position on the grid
     def move(self, position):
         result = self.grid.place_piece(self.turn, position)
-        if result == 1:
+        if result:
             self.num_moves += 1
             self.turn *= -1
 
     def prettyprint(self):
+        print(self.num_moves)
         self.grid.prettyprint()
+        print()
 
 
 if __name__ == "__main__":
