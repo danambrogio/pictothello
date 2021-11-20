@@ -1,6 +1,6 @@
 import os
 import pygame
-from pygame.display import get_surface
+import game as othello
 
 MAX_X = 1280
 MAX_Y = 720
@@ -14,6 +14,10 @@ SCENE_END = 2
 EASY = 5
 MEDIUM = 6
 HARD = 7
+
+EZ_TARGET = [[0, 0, 0, 0, 0],[0, 1, 1, 0, 0],[0, 0, -1, 0, -1],[0, 0, 1, 0, 0],[-1, 0, 0, 0, 0]]
+MD_TARGET = [[],[],[],[],[],[]]
+HD_TARGET = [[],[],[],[],[],[],[]]
 
 TITLE_LOCATION = (450, 100)
 EASY_LOCATION = (390, 250)
@@ -76,11 +80,16 @@ def game(screen, difficulty):
 
     # Set up game screen
     if difficulty == EASY:
-        screen.fill((0, 255, 0))
+        game = othello.Game(EZ_TARGET)
     elif difficulty == MEDIUM:
+        game = othello.Game([])
         screen.fill((0, 0, 255))
     elif difficulty == HARD:
+        game = othello.Game([])
         screen.fill((255, 0, 0))
+    
+    # Draw game screen
+    # See readme for design description
 
     while running:
         for event in pygame.event.get():

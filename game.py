@@ -2,8 +2,6 @@ BLACK = -1
 NONE = 0
 WHITE = 1
 
-TARGET = [[0, 0, 0], [0, -1, 0], [0, 0, 0]]
-
 class Cell(object):
     """ Represents the state of a cell in the grid """
 
@@ -101,7 +99,8 @@ class Game(object):
 
 
 if __name__ == "__main__":
-    game = Game(TARGET)
+    target = [[0, 0, 0], [0, -1, 0], [0, 0, 0]]
+    game = Game(target)
     print("Empty board")
     game.prettyprint()
 
