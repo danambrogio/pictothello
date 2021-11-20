@@ -21,6 +21,10 @@ class Cell(object):
         else:
             return False
 
+    def flip_piece(self, color):
+        if self.color != NONE and self.color != color:
+            self.color *= -1
+
 
 class Grid(object):
     """ Represents the grid of Cells """
@@ -42,13 +46,20 @@ class Grid(object):
             # Piece successfully placed
             # Let's start with something simpler:
             # Adjacent pieces get turned your color
+            adj_tiles = [[0, 1], [1, 1], [1, 0], [1, -1],
+                         [0, -1], [-1, -1], [-1, 0], [-1, 1]]
+            for x_diff, y_diff in adj_tiles:
+                new_x = x + x_diff
+                new_y = y + y_diff
+                if new_x < self.size and new_y < self.size and new_x >= 0 and new_y >= 0:
+                    dbg = [new_x, new_y]
+                    self.cells[new_y][new_x].flip_piece(color)
             return True
         else:
             # Piece was not placed
             return False
 
     # Prettyprint for debug purposes only
-
     def prettyprint(self):
         for y in self.cells:
             for x in y:
@@ -97,5 +108,5 @@ if __name__ == "__main__":
     game.prettyprint()
 
     game.move((2, 2))
-    print("Piece placed at (2, 2), capturing")
+    print("Piece placed at (2, 2)")
     game.prettyprint()
