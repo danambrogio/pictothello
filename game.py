@@ -76,10 +76,10 @@ class Game(object):
     gameover = False
     num_moves = 0
     turn = BLACK
-    target = TARGET
 
-    def __init__(self, difficulty):
-        self.grid = Grid(difficulty)
+    def __init__(self, target):
+        self.target = target
+        self.grid = Grid(len(target))
 
     # User makes a move
     # position: (x, y) position on the grid
@@ -101,7 +101,7 @@ class Game(object):
 
 
 if __name__ == "__main__":
-    game = Game(3)
+    game = Game(TARGET)
     print("Empty board")
     game.prettyprint()
 
