@@ -10,9 +10,10 @@ SCENE_MENU = 0
 SCENE_GAME = 1
 SCENE_END = 2
 
-EASY = 0
-MEDIUM = 1
-HARD = 2
+# Difficulty = size of grid
+EASY = 5
+MEDIUM = 6
+HARD = 7
 
 TITLE_LOCATION = (450, 100)
 EASY_LOCATION = (390, 250)
@@ -70,6 +71,9 @@ def menu(screen):
 def game(screen, difficulty):
     running = True
 
+    # Load images?
+    
+
     # Set up game screen
     if difficulty == EASY:
         screen.fill((0, 255, 0))
@@ -104,4 +108,6 @@ def main():
     pygame.quit()
 
 
-main()
+if __name__ == "__main__":
+    main()
+    pygame.quit()
