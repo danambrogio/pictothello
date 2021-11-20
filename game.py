@@ -2,6 +2,7 @@ BLACK = -1
 NONE = 0
 WHITE = 1
 
+TARGET = [[0, 0, 0], [0, -1, 0], [0, 0, 0]]
 
 class Cell(object):
     """ Represents the state of a cell in the grid """
@@ -52,12 +53,15 @@ class Grid(object):
                 new_x = x + x_diff
                 new_y = y + y_diff
                 if new_x < self.size and new_y < self.size and new_x >= 0 and new_y >= 0:
-                    dbg = [new_x, new_y]
                     self.cells[new_y][new_x].flip_piece(color)
             return True
         else:
             # Piece was not placed
             return False
+
+    def matches(self, target):
+        board = [[x.color for x in y] for y in self.cells]
+        return board == target
 
     # Prettyprint for debug purposes only
     def prettyprint(self):
@@ -72,6 +76,7 @@ class Game(object):
     gameover = False
     num_moves = 0
     turn = BLACK
+    target = TARGET
 
     def __init__(self, difficulty):
         self.grid = Grid(difficulty)
@@ -79,10 +84,15 @@ class Game(object):
     # User makes a move
     # position: (x, y) position on the grid
     def move(self, position):
+        if self.gameover:
+            return
         result = self.grid.place_piece(self.turn, position)
         if result:
             self.num_moves += 1
             self.turn *= -1
+            # Check if game is over
+            if self.grid.matches(self.target):
+                self.gameover = True
 
     def prettyprint(self):
         print(self.num_moves)
@@ -95,18 +105,9 @@ if __name__ == "__main__":
     print("Empty board")
     game.prettyprint()
 
-    game.move((0, 0))
-    print("Piece placed at (0, 0)")
-    game.prettyprint()
-
     game.move((1, 1))
     print("Piece placed at (1, 1)")
     game.prettyprint()
 
-    game.move((1, 1))
-    print("Piece failed to be placed at (1, 1)")
-    game.prettyprint()
-
-    game.move((2, 2))
-    print("Piece placed at (2, 2)")
-    game.prettyprint()
+    print("Is the game over?")
+    print(game.gameover)
