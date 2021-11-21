@@ -15,9 +15,10 @@ EASY = 5
 MEDIUM = 6
 HARD = 7
 
-EZ_TARGET = [[0, 0, 0, 0, 0],[0, 1, 1, 0, 0],[0, 0, -1, 0, -1],[0, 0, 1, 0, 0],[-1, 0, 0, 0, 0]]
-MD_TARGET = [[],[],[],[],[],[]]
-HD_TARGET = [[],[],[],[],[],[],[]]
+EZ_TARGET = [[1, 0, 0, 0, 1], [0, 0, 0, 0, 0], [
+    0, -1, -1, -1, 0], [0, 0, 0, 0, 0], [1, 0, 0, 0, 1]]
+MD_TARGET = [[], [], [], [], [], []]
+HD_TARGET = [[], [], [], [], [], [], []]
 
 TITLE_LOCATION = (450, 100)
 EASY_LOCATION = (390, 250)
@@ -29,7 +30,7 @@ def menu(screen):
     running = True
 
     # Load images
-    bg_img = pygame.image.load(os.path.join("img/background.png")).convert()
+    bg_img = pygame.image.load(os.path.join("img", "background.png")).convert()
     easy_img = pygame.image.load(os.path.join(
         "img", "easy_menu_btn.png")).convert()
     med_img = pygame.image.load(os.path.join(
@@ -75,8 +76,12 @@ def menu(screen):
 def game(screen, difficulty):
     running = True
 
-    # Load images?
-    
+    # Load images
+    black = pygame.image.load(os.path.join("img", "black.png")).convert_alpha()
+    black = pygame.transform.smoothscale(black, (50, 50))
+
+    white = pygame.image.load(os.path.join("img", "white.png")).convert_alpha()
+    white = pygame.transform.smoothscale(white, (50, 50))
 
     # Set up game screen
     if difficulty == EASY:
@@ -87,7 +92,7 @@ def game(screen, difficulty):
     elif difficulty == HARD:
         game = othello.Game([])
         screen.fill((255, 0, 0))
-    
+
     # Draw game screen
     # See readme for design description
 
@@ -96,6 +101,11 @@ def game(screen, difficulty):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # test if user clicked on cell
+                # pass action to given cell
+                # determine if game is over
+                pass
         pygame.display.flip()
 
     return SCENE_MENU
