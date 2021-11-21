@@ -86,6 +86,8 @@ def game(screen, difficulty):
     # Set up game screen
     if difficulty == EASY:
         game = othello.Game(EZ_TARGET)
+        screen.blit(black, (300, 300))
+        screen.blit(white, (300, 400))
     elif difficulty == MEDIUM:
         game = othello.Game([])
         screen.fill((0, 0, 255))
