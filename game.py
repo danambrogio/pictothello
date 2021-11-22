@@ -2,6 +2,7 @@ BLACK = -1
 NONE = 0
 WHITE = 1
 
+
 class Cell(object):
     """ Represents the state of a cell in the grid """
 
@@ -39,10 +40,11 @@ class Grid(object):
         if x >= self.size or y >= self.size:
             # Invalid position
             return False
-        result = self.cells[y][x].place_piece(color)
+        result = self.cells[x][y].place_piece(color)
 
         if result:
             # Piece successfully placed
+            # TODO: fix tile logic
             # Let's start with something simpler:
             # Adjacent pieces get turned your color
             adj_tiles = [[0, 1], [1, 1], [1, 0], [1, -1],
@@ -51,7 +53,7 @@ class Grid(object):
                 new_x = x + x_diff
                 new_y = y + y_diff
                 if new_x < self.size and new_y < self.size and new_x >= 0 and new_y >= 0:
-                    self.cells[new_y][new_x].flip_piece(color)
+                    self.cells[new_x][new_y].flip_piece(color)
             return True
         else:
             # Piece was not placed
