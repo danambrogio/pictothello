@@ -19,7 +19,9 @@ EASY = 5
 MEDIUM = 6
 HARD = 7
 
-EZ_TARGET = [[-1, 0, 0, -1], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1]]
+# Just click the squares in order from top left -> right
+EZ_TARGET = [[othello.WHITE, othello.BLACK, othello.WHITE, othello.WHITE], [othello.WHITE, othello.BLACK, othello.WHITE, othello.WHITE], [
+    othello.WHITE, othello.BLACK, othello.WHITE, othello.WHITE], [othello.WHITE, othello.BLACK, othello.WHITE, othello.WHITE]]
 MD_TARGET = [[], [], [], [], [], []]
 HD_TARGET = [[], [], [], [], [], [], []]
 
@@ -202,4 +204,3 @@ def main():
 if __name__ == "__main__":
     main()
     pygame.quit()
-    
